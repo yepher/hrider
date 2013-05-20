@@ -205,6 +205,7 @@ public class PathHelper {
 
                 URI uri = new URI(normalizedPath);
                 normalizedPath = uri.getPath();
+                return normalizedPath;
             }
             catch (URISyntaxException e) {
                 logger.warn(e, "Path is not valid URI: '%s'", normalizedPath);

@@ -134,6 +134,7 @@ public class JavaPackage {
                         String className = packageName + '.' +
                                            PathHelper.getPathWithoutExtension(NUMBER_IN_CLASS_NAME.matcher(fileName).replaceAll(""));
 
+                        className = className.replace("/", "");
                         if (!loadedClasses.contains(className)) {
                             logger.info("Loading class '%s'", className);
 
