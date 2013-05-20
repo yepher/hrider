@@ -1,10 +1,7 @@
 package hrider.ui.forms;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
-import hrider.actions.*;
 import hrider.actions.Action;
+import hrider.actions.RunnableAction;
 import hrider.config.GlobalConfig;
 import hrider.data.ColumnQualifier;
 import hrider.data.ColumnType;
@@ -16,18 +13,43 @@ import hrider.hbase.HbaseActionListener;
 import hrider.hbase.QueryScanner;
 import hrider.hbase.Scanner;
 import hrider.io.Log;
-import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Result;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+
+import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.client.Result;
+
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
@@ -112,7 +134,7 @@ public class ExportTableDialog extends JDialog {
                         }
                         catch (Exception ex) {
                             JOptionPane.showMessageDialog(
-                                contentPane, String.format("Failed to load columns for '%s' table.\nError: %s", scanner.getTableName(), ex.getMessage()),
+                                contentPane, String.format("Failed to load columns for '%s' table.%nError: %s", scanner.getTableName(), ex.getMessage()),
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
                         finally {
@@ -140,7 +162,7 @@ public class ExportTableDialog extends JDialog {
                         }
                         catch (IOException ex) {
                             JOptionPane.showMessageDialog(
-                                contentPane, String.format("Failed to open file %s.\nError: %s", filePath, ex.getMessage()), "Error",
+                                contentPane, String.format("Failed to open file %s.%nError: %s", filePath, ex.getMessage()), "Error",
                                 JOptionPane.ERROR_MESSAGE);
                         }
                     }
@@ -253,7 +275,7 @@ public class ExportTableDialog extends JDialog {
             }
             catch (IOException e) {
                 JOptionPane.showMessageDialog(
-                    this.contentPane, String.format("Failed to create file %s.\nError: %s", this.tfFilePath.getText(), e.getMessage()), "Error",
+                    this.contentPane, String.format("Failed to create file %s.%nError: %s", this.tfFilePath.getText(), e.getMessage()), "Error",
                     JOptionPane.ERROR_MESSAGE);
 
                 return;
@@ -289,7 +311,7 @@ public class ExportTableDialog extends JDialog {
                     }
                     catch (Exception e) {
                         JOptionPane.showMessageDialog(
-                            contentPane, String.format("Failed to export to file %s.\nError: %s", tfFilePath.getText(), e.getMessage()), "Error",
+                            contentPane, String.format("Failed to export to file %s.%nError: %s", tfFilePath.getText(), e.getMessage()), "Error",
                             JOptionPane.ERROR_MESSAGE);
                     }
                     finally {

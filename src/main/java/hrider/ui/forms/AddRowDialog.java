@@ -1,17 +1,42 @@
 package hrider.ui.forms;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import hrider.data.*;
+import hrider.data.CheckedRow;
+import hrider.data.ColumnFamily;
+import hrider.data.ColumnQualifier;
+import hrider.data.ColumnType;
+import hrider.data.ConvertibleObject;
+import hrider.data.DataCell;
+import hrider.data.DataRow;
+import hrider.data.TypedColumn;
 import hrider.ui.controls.WideComboBox;
 import hrider.ui.design.JCellEditor;
 import hrider.ui.design.JCheckBoxRenderer;
 import hrider.ui.design.JTableModel;
 
-import javax.swing.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.*;
+
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.

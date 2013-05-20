@@ -1,13 +1,23 @@
 package hrider.reflection;
 
+import hrider.io.Log;
 import hrider.io.PathHelper;
 
-import javax.tools.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
@@ -31,6 +41,8 @@ import java.util.*;
  */
 public class JavaCompiler {
 
+	private final static Log logger = Log.getLogger(JavaCompiler.class);
+	
     //region Variables
     private static List<String> errors;
     //endregion
@@ -56,7 +68,9 @@ public class JavaCompiler {
         errors.clear();
 
         // make sure all directories are created.
-        new File(outputFolder).mkdirs();
+        if (!new File(outputFolder).mkdirs()) {
+        	throw new IllegalStateException("Failed to create output folder: " + outputFolder);
+        }
 
         StandardJavaFileManager fileManager = null;
 
@@ -88,7 +102,9 @@ public class JavaCompiler {
 
     public static File saveCode(String className, String code, String outputFolder) throws IOException, FileNotFoundException {
         // make sure all directories are created.
-        new File(outputFolder).mkdirs();
+        if (!new File(outputFolder).mkdirs()) {
+        	throw new IllegalStateException("Failed to create output folder: " + outputFolder);
+        }
 
         String path = PathHelper.append(outputFolder, className + ".java");
         File file = new File(path);
@@ -97,7 +113,7 @@ public class JavaCompiler {
 
         try {
             stream = new FileOutputStream(file);
-            stream.write(code.getBytes());
+            stream.write(code.getBytes("UTF-8"));
 
             return file;
         }

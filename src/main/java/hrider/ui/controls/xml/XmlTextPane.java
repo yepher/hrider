@@ -1,19 +1,23 @@
 package hrider.ui.controls.xml;
 
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import hrider.io.Log;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import javax.swing.JTextPane;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.swing.*;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
+// This is quite questionable. Should we really access *.internal.* ???
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
@@ -67,7 +71,7 @@ public class XmlTextPane extends JTextPane {
             super.setText(formatXml(t));
         }
         else {
-            super.setText(t);
+            super.setText(null);
         }
     }
 

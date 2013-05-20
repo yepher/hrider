@@ -1,15 +1,15 @@
 package hrider.data;
 
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
-import org.apache.hadoop.hbase.util.Bytes;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.HTableDescriptor;
+import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
+import org.apache.hadoop.hbase.util.Bytes;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
@@ -123,7 +123,9 @@ public class TableDescriptor implements Serializable, Cloneable {
     }
 
     @Override
-    public TableDescriptor clone() {
+    public TableDescriptor clone() throws CloneNotSupportedException {
+    	super.clone();
+    	
         TableDescriptor descriptor = new TableDescriptor();
         descriptor.name = this.name;
         descriptor.metadata = new HashMap<String, String>(this.metadata);

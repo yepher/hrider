@@ -2,9 +2,12 @@ package hrider.ui.design;
 
 import hrider.hbase.Connection;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.io.IOException;
+
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
 
 public class JListRenderer extends DefaultListCellRenderer {
 

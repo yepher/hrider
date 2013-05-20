@@ -1,29 +1,69 @@
 package hrider.ui.forms;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 import hrider.config.GlobalConfig;
 import hrider.converters.TypeConverter;
-import hrider.data.*;
+import hrider.data.ColumnFamily;
+import hrider.data.ColumnQualifier;
+import hrider.data.ColumnType;
+import hrider.data.ConvertibleObject;
+import hrider.data.DataCell;
+import hrider.data.DataRow;
+import hrider.data.TableDescriptor;
+import hrider.data.TypedColumn;
 import hrider.hbase.Connection;
 import hrider.hbase.HbaseActionListener;
 import hrider.ui.controls.WideComboBox;
 import hrider.ui.design.JTableModel;
+
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 import org.apache.hadoop.hbase.TableNotFoundException;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.*;
-import java.util.List;
-import java.util.regex.Pattern;
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
@@ -289,7 +329,7 @@ public class ImportTableDialog extends JDialog {
                         String tableName = tfTableName.getText().trim();
                         if (!connection.tableExists(tableName)) {
                             int option = JOptionPane.showConfirmDialog(
-                                contentPane, String.format("The specified table '%s' does not exist.\nDo you want to create it?", tableName), "Create table",
+                                contentPane, String.format("The specified table '%s' does not exist.%nDo you want to create it?", tableName), "Create table",
                                 JOptionPane.YES_NO_OPTION);
 
                             if (option != JOptionPane.YES_OPTION) {
@@ -313,7 +353,7 @@ public class ImportTableDialog extends JDialog {
                     }
                     catch (Exception e) {
                         JOptionPane.showMessageDialog(
-                            contentPane, String.format("Failed to import file %s.\nError: %s", tfFilePath.getText(), e.getMessage()), "Error",
+                            contentPane, String.format("Failed to import file %s.%nError: %s", tfFilePath.getText(), e.getMessage()), "Error",
                             JOptionPane.ERROR_MESSAGE);
                     }
                     finally {
@@ -335,7 +375,9 @@ public class ImportTableDialog extends JDialog {
         BufferedReader reader = null;
 
         try {
-            reader = new BufferedReader(new FileReader(filePath));
+        	
+        	FileInputStream fileInputStream = new FileInputStream(filePath);
+        	reader = new BufferedReader(new InputStreamReader(fileInputStream, "UTF-8"));
             String header = reader.readLine();
             if (header != null) {
                 Pattern p = Pattern.compile(Pattern.quote(Character.toString(getDelimiter())));

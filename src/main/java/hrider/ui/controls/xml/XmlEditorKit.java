@@ -30,7 +30,7 @@ public class XmlEditorKit extends StyledEditorKit {
     //endregion
 
     //region Variables
-    private ViewFactory xmlViewFactory;
+    private transient ViewFactory xmlViewFactory;
     //endregion
 
     //region Constructor

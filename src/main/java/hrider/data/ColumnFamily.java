@@ -1,12 +1,12 @@
 package hrider.data;
 
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
-import org.apache.hadoop.hbase.util.Bytes;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
+import org.apache.hadoop.hbase.util.Bytes;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
@@ -95,7 +95,9 @@ public class ColumnFamily implements Serializable, Cloneable {
     }
 
     @Override
-    public ColumnFamily clone() {
+    public ColumnFamily clone() throws CloneNotSupportedException {
+    	super.clone();
+    	
         ColumnFamily family = new ColumnFamily();
         family.name = this.name;
         family.metadata = new HashMap<String, String>(this.metadata);

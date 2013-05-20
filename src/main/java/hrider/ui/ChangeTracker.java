@@ -41,6 +41,8 @@ public class ChangeTracker implements Serializable {
     /**
      * A list of components registered for change events.
      */
+    
+    // Hmmmm? This class is Serializable but ChangeTrackerListener is not a Serializable object. What is supposed to happen here?
     private Collection<ChangeTrackerListener> listeners;
     //endregion
 

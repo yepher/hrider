@@ -1,11 +1,12 @@
 package hrider.ui.controls.json;
 
+import hrider.io.Log;
+
+import javax.swing.JTextPane;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
-import hrider.io.Log;
-
-import javax.swing.*;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
@@ -52,7 +53,7 @@ public class JsonTextPane extends JTextPane {
             super.setText(formatJson(t));
         }
         else {
-            super.setText(t);
+            super.setText(null);
         }
     }
 

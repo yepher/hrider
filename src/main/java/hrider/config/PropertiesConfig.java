@@ -3,7 +3,12 @@ package hrider.config;
 import hrider.io.Log;
 import hrider.reflection.Clazz;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -29,7 +34,6 @@ import java.util.Properties;
  *          The base class for all configuration classes that are based on files represented as properties.
  *          This class also supports dynamic update of the configuration data meaning that a file is tracked for changes.
  */
-@SuppressWarnings("ResultOfMethodCallIgnored")
 public abstract class PropertiesConfig {
 
     //region Variables
@@ -54,9 +58,14 @@ public abstract class PropertiesConfig {
             if (!this.file.exists()) {
                 File folder = new File("config/");
                 if (!folder.exists()) {
-                    folder.mkdirs();
+                    if (!folder.mkdirs()) {
+                    	throw new IllegalStateException("Failed to create config directory: " + folder);
+                    }
                 }
-                this.file.createNewFile();
+                
+                if (!this.file.createNewFile()) {
+                	throw new IllegalStateException("Failed to create config file: " + this.file);
+                }
 
                 onFileCreated();
             }

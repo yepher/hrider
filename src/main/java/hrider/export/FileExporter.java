@@ -8,6 +8,7 @@ import hrider.format.Formatter;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
@@ -32,7 +33,7 @@ import java.io.OutputStream;
 public class FileExporter implements Exporter {
 
     //region Constants
-    private static final byte[] LINE_SEPARATOR = System.getProperty("line.separator").getBytes();
+    private static final byte[] LINE_SEPARATOR;
     //endregion
 
     //region Variables
@@ -43,6 +44,15 @@ public class FileExporter implements Exporter {
 
     //region Constructor
 
+    
+    static {
+    	try {
+			LINE_SEPARATOR = System.getProperty("line.separator").getBytes("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new IllegalStateException("UTF-8 required but not supported.");
+		}
+    }
+    
     /**
      * Initializes a new instance of the {@link FileExporter} class.
      *
@@ -74,7 +84,7 @@ public class FileExporter implements Exporter {
                 formatter.append(column);
             }
 
-            this.stream.write(formatter.getFormattedString().getBytes());
+            this.stream.write(formatter.getFormattedString().getBytes("UTF-8"));
             this.stream.write(LINE_SEPARATOR);
 
             this.headerWritten = true;
@@ -92,7 +102,7 @@ public class FileExporter implements Exporter {
             }
         }
 
-        this.stream.write(formatter.getFormattedString().getBytes());
+        this.stream.write(formatter.getFormattedString().getBytes("UTF-8"));
         this.stream.write(LINE_SEPARATOR);
     }
     //endregion

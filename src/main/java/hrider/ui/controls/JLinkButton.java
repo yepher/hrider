@@ -1,10 +1,19 @@
 package hrider.ui.controls;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.net.URL;
+
+import javax.swing.Action;
+import javax.swing.ButtonModel;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.metal.MetalButtonUI;
-import java.awt.*;
-import java.net.URL;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.

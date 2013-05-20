@@ -5,10 +5,16 @@ import hrider.io.Log;
 import hrider.io.PathHelper;
 import hrider.reflection.JavaPackage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -114,12 +120,16 @@ public class ConvertersLoader {
                     converter.getClass().getSimpleName() + ".class"));
 
             if (classFile.exists()) {
-                classFile.delete();
+                if (!classFile.delete()) {
+                	logger.info("failed to delete {}", classFile);
+                }
             }
 
             File codeFile = new File(PathHelper.append(GlobalConfig.instance().getConvertersCodeFolder(), converter.getClass().getSimpleName() + ".java"));
             if (codeFile.exists()) {
-                codeFile.delete();
+                if (!codeFile.delete()) {
+                	logger.info("failed to delete {}", codeFile);
+                }
             }
         }
     }
@@ -196,7 +206,9 @@ public class ConvertersLoader {
 
             BufferedReader reader = null;
             try {
-                reader = new BufferedReader(new FileReader(file));
+            	
+            	FileInputStream fileInputStream = new FileInputStream(file.getAbsolutePath());
+            	reader = new BufferedReader(new InputStreamReader(fileInputStream, Charset.forName("UTF-8")));
 
                 String line;
                 while ((line = reader.readLine()) != null) {

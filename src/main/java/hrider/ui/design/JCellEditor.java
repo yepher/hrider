@@ -1,6 +1,5 @@
 package hrider.ui.design;
 
-import com.michaelbaranov.microba.calendar.DatePicker;
 import hrider.config.GlobalConfig;
 import hrider.data.ColumnType;
 import hrider.data.DataCell;
@@ -9,13 +8,19 @@ import hrider.ui.ChangeTracker;
 import hrider.ui.controls.json.JsonEditor;
 import hrider.ui.controls.xml.XmlEditor;
 
-import javax.swing.*;
-import javax.swing.table.TableCellEditor;
-import java.awt.*;
+import java.awt.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.swing.AbstractCellEditor;
+import javax.swing.BorderFactory;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.TableCellEditor;
+
+import com.michaelbaranov.microba.calendar.DatePicker;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.

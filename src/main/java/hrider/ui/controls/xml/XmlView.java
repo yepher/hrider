@@ -1,13 +1,21 @@
 package hrider.ui.controls.xml;
 
-import javax.swing.text.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.PlainDocument;
+import javax.swing.text.PlainView;
+import javax.swing.text.Segment;
+import javax.swing.text.Utilities;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.

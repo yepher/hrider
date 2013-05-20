@@ -1,7 +1,9 @@
 package hrider.ui.controls;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 
 public class WideComboBox extends JComboBox {
 

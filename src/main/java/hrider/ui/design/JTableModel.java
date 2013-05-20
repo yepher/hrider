@@ -1,10 +1,11 @@
 package hrider.ui.design;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.

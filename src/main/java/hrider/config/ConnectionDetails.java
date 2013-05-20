@@ -3,11 +3,12 @@ package hrider.config;
 import hrider.actions.Action;
 import hrider.actions.RunnableAction;
 import hrider.hbase.ConnectionManager;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HBaseConfiguration;
 
 import java.io.IOException;
 import java.io.Serializable;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.HBaseConfiguration;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.

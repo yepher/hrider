@@ -1,12 +1,12 @@
 package hrider.io;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
@@ -28,6 +28,8 @@ import java.util.regex.Pattern;
  */
 public class FileHelper {
 
+	private final static Log logger = Log.getLogger(FileHelper.class);
+	
     //region Constructor
     private FileHelper() {
     }
@@ -44,7 +46,9 @@ public class FileHelper {
                     if (file.isDirectory()) {
                         delete(file);
                     }
-                    file.delete();
+                    if (!file.delete()) {
+                    	logger.info("Failed to delete: {}", file);
+                    }
                 }
             }
         }

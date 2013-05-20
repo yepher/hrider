@@ -1,6 +1,7 @@
 package hrider.hbase;
 
 import hrider.data.DataRow;
+
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 

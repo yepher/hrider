@@ -2,13 +2,14 @@ package hrider.converters;
 
 import hrider.config.GlobalConfig;
 import hrider.io.Log;
-import org.apache.hadoop.hbase.util.Bytes;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import org.apache.hadoop.hbase.util.Bytes;
 
 /**
  * Copyright (C) 2012 NICE Systems ltd.
